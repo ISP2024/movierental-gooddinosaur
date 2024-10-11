@@ -14,16 +14,16 @@ class Customer:
         self.name = name
         self.rentals = []
 
-    def add_rental(self, rental: Rental):
+    def add_rental(self, rental: Rental) -> None:
         """Add a rental for this customer"""
         if rental not in self.rentals:
             self.rentals.append(rental)
 
-    def get_name(self):
+    def get_name(self) -> str:
         """Get the customer's name."""
         return self.name
 
-    def statement(self):
+    def statement(self) -> str:
         """Create a statement of rentals for the current period.
 
         Print all the rentals in the current period, 
@@ -37,7 +37,6 @@ class Customer:
         header_fmt = "{:40s}  {:6s} {:6s}\n"
         statement += header_fmt.format("Movie Title", "  Days", " Price")
         rental_fmt = "{:40s}  {:6d} {:6.2f}\n"
-
         for rental in self.rentals:
             #  add a detail line to statement
             statement += rental_fmt.format(
@@ -51,13 +50,12 @@ class Customer:
             "Total Charges", "", self.total_charge())
         statement += "Frequent Renter Points earned: {}\n".format(
             self.total_rental_points())
-
         return statement
 
-    def total_charge(self):
+    def total_charge(self) -> float:
         """Compute the total charge for all rentals."""
         return sum(rental.get_price() for rental in self.rentals)
 
-    def total_rental_points(self):
+    def total_rental_points(self) -> int:
         """Compute total frequent renter points for all rentals."""
         return sum(rental.get_rental_points() for rental in self.rentals)
