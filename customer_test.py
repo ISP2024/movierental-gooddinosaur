@@ -32,6 +32,19 @@ class CustomerTest(unittest.TestCase):
         expected_total = 9.00 + 5.0 + 4.50
         self.assertEqual(self.c.total_charge(), expected_total)
 
+    def test_total_rental_points_no_rentals(self):
+        """Test total rental points with no rentals."""
+        self.assertEqual(self.c.total_rental_points(), 0)
+
+    def test_total_rental_points_with_rentals(self):
+        """Test total rental points with multiple rentals."""
+        self.c.add_rental(Rental(self.new_movie, 3))
+        self.c.add_rental(Rental(self.regular_movie, 4))
+        self.c.add_rental(Rental(self.childrens_movie, 5))
+
+        expected_points = 3 + 1 + 1
+        self.assertEqual(self.c.total_rental_points(), expected_points)
+
     def test_statement(self):
         stmt = self.c.statement()
         # get total charges from statement using a regex
