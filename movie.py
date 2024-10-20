@@ -4,6 +4,7 @@ from typing import Collection
 
 @dataclass(frozen=True)
 class Movie:
+    """Represents a movie with a title, release year, and genres."""
     title: str
     year: int
     genre: Collection[str]

@@ -5,9 +5,11 @@ from movie import Movie
 
 
 class MovieCatalog:
+    """A singleton class that manages a catalog of movies."""
     _instance = None
 
     def __new__(cls):
+        """Create a new instance of MovieCatalog or return the existing instance."""
         if cls._instance is None:
             cls._instance = super(MovieCatalog, cls).__new__(cls)
             cls._instance._movies = {}
@@ -15,6 +17,7 @@ class MovieCatalog:
         return cls._instance
 
     def _load_movies(self):
+        """Load movies from a CSV file"""
         try:
             with open('movies.csv', 'r', encoding='utf-8') as file:
                 reader = csv.reader(file)
@@ -37,6 +40,7 @@ class MovieCatalog:
             logging.error("The movie data file was not found.")
 
     def get_movie(self, title: str, year: Optional[int] = None) -> Optional[Movie]:
+        """Retrieve a movie from the catalog by it's title and year(optional)."""
         if not self._loaded:
             self._load_movies()
             self._loaded = True
