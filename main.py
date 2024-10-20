@@ -4,17 +4,17 @@
 from movie import Movie
 from rental import Rental
 from customer import Customer
-from price_strategy import *
+from movie_catalog import MovieCatalog
 
 
 def make_movies():
     """Some sample movies."""
     movies = [
-        Movie("Air"),
-        Movie("Oppenheimer"),
-        Movie("Frozen"),
-        Movie("Bitconned"),
-        Movie("Particle Fever")
+        Movie("Air", Movie.NEW_RELEASE),
+        Movie("Oppenheimer", Movie.REGULAR),
+        Movie("Frozen", Movie.CHILDRENS),
+        Movie("Bitconned", Movie.NEW_RELEASE),
+        Movie("Particle Fever", Movie.REGULAR)
     ]
     return movies
 
@@ -23,9 +23,11 @@ if __name__ == '__main__':
     # Create a customer with some rentals
     customer = Customer("Edward Snowden")
     days = 1
-    movie_types = [NEW_RELEASE, REGULAR, CHILDREN, NEW_RELEASE, REGULAR]
-    movies = make_movies()
-    for i in range(len(movies)):
-        customer.add_rental(Rental(movies[i], days, movie_types[i]))
-        days = (days + 2) % 5 + 1
+    for title in ["Air", "Oppenheimer", "Frozen", "Bitconned",
+                  "Particle Fever"]:
+        movie = MovieCatalog().get_movie(title)
+        if movie:
+            rental = Rental(movie, days)
+            customer.add_rental(rental)
+            days = (days + 2) % 5 + 1
     print(customer.statement())
