@@ -1,18 +1,17 @@
-from price_strategy import PriceStrategy, NEW_RELEASE, REGULAR, CHILDREN
+from dataclasses import dataclass
+from typing import Collection
 
 
+@dataclass(frozen=True)
 class Movie:
-    """
-    A movie available for rent.
-    """
-    def __init__(self, title: str):
-        """Initialize a new movie with a price strategy."""
-        self.title = title
+    title: str
+    year: int
+    genre: Collection[str]
 
-    def get_title(self) -> str:
-        """Get the title of the movie."""
-        return self.title
+    def is_genre(self, genre: str) -> bool:
+        """Check if the movie matches the given genre."""
+        return genre.lower() in (g.lower() for g in self.genre)
 
     def __str__(self) -> str:
-        """Return a string representation of the movie."""
-        return self.title
+        """Return the string representation of the movie."""
+        return f"{self.title} ({self.year})"
