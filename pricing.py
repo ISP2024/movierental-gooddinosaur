@@ -1,9 +1,9 @@
 from datetime import datetime
 from movie import Movie
-from price_strategy import NEW_RELEASE, REGULAR, CHILDREN
+from price_strategy import PriceStrategy, NEW_RELEASE, REGULAR, CHILDREN
 
 
-def price_code_for_movie(movie: Movie) -> str:
+def price_code_for_movie(movie: Movie) -> PriceStrategy:
     current_year = datetime.now().year
     if movie.year == current_year:
         return NEW_RELEASE
