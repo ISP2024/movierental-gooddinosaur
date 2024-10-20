@@ -2,7 +2,7 @@ import re
 import unittest
 from customer import Customer
 from rental import Rental
-from movie import Movie
+from movie_catalog import MovieCatalog
 
 
 class CustomerTest(unittest.TestCase):
@@ -15,9 +15,10 @@ class CustomerTest(unittest.TestCase):
         movies = list of some movies
         """
         self.c = Customer("Movie Mogul")
-        self.new_movie = Movie("Mulan", Movie.NEW_RELEASE)
-        self.regular_movie = Movie("CitizenFour", Movie.REGULAR)
-        self.childrens_movie = Movie("Frozen", Movie.CHILDRENS)
+        self.new_movie = MovieCatalog().get_movie("Dune: Part Two")
+        self.regular_movie = MovieCatalog().get_movie("The Batman")
+        self.childrens_movie = MovieCatalog().get_movie("Turning Red")
+        print(self.new_movie.genre)
 
     def test_total_charge_no_rentals(self):
         """Test total charge with no rentals."""
